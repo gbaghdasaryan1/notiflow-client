@@ -1,0 +1,186 @@
+@use '../../../../styles/variables' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg;
+  display: flex;
+  flex-direction: column;
+}
+
+// ── Topbar ────────────────────────────────────────────────────────────────────
+.topbar {
+  height: 56px;
+  border-bottom: 1px solid $color-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $spacing-6;
+  background: $color-surface;
+  position: sticky;
+  top: 0;
+  z-index: $z-dropdown;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  text-decoration: none;
+
+  .logoMark {
+    width: 1.75rem;
+    height: 1.75rem;
+    background: $gradient-primary;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .logoText {
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-base;
+    color: $color-text;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+}
+
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.9);
+  color: $color-text;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(15, 23, 42, 1);
+  }
+}
+
+.menuBar {
+  width: 16px;
+  height: 2px;
+  border-radius: 999px;
+  background: $color-text;
+}
+
+.navItem {
+  padding: $spacing-2 $spacing-3;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  text-decoration: none;
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+  white-space: nowrap;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: $color-text;
+  }
+
+  &.active {
+    background: rgba(99, 102, 241, 0.12);
+    color: $color-primary;
+  }
+}
+
+.signOutBtn {
+  margin-left: $spacing-2;
+}
+
+// ── Content area ──────────────────────────────────────────────────────────────
+.main {
+  flex: 1;
+  padding: $spacing-8 $spacing-6;
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+// ── Backdrop (mobile only) ────────────────────────────────────────────────────
+.backdrop {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 $spacing-4;
+  }
+
+  .nav {
+    position: absolute;
+    inset-block-start: 56px;
+    inset-inline: 0;
+    padding: $spacing-3 $spacing-4 $spacing-4;
+    background: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid rgba(15, 23, 42, 1);
+    flex-direction: column;
+    gap: $spacing-2;
+    z-index: $z-dropdown;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform $transition-normal,
+      opacity $transition-normal;
+  }
+
+  .navOpen {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navItem {
+    width: 100%;
+  }
+
+  .signOutBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+  }
+
+  .backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: calc($z-dropdown - 1);
+    animation: fadeIn $transition-normal forwards;
+  }
+
+  .main {
+    padding: $spacing-6 $spacing-4;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

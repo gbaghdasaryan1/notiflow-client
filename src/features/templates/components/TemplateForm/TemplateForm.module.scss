@@ -1,0 +1,302 @@
+@use '../../../../styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+// ── Field wrapper (label + input) ─────────────────────────────────────────────
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+}
+
+.required { color: $color-error; margin-left: 2px; }
+
+// ── Select ────────────────────────────────────────────────────────────────────
+.selectWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  padding: $spacing-3 2.25rem $spacing-3 $spacing-4;
+  background: #131929;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text;
+  font-size: $font-size-sm;
+  font-family: inherit;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  option { background: #131929; }
+}
+
+.selectChevron {
+  position: absolute;
+  right: $spacing-3;
+  color: $color-text-muted;
+  pointer-events: none;
+}
+
+// ── Textarea ──────────────────────────────────────────────────────────────────
+.textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: $spacing-3 $spacing-4;
+  background: #131929;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text;
+  font-size: $font-size-sm;
+  font-family: inherit;
+  line-height: $line-height-relaxed;
+  resize: vertical;
+  outline: none;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &::placeholder { color: $color-text-muted; opacity: 0.6; }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+
+  &.error {
+    border-color: $color-error;
+    &:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15); }
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.errorText {
+  font-size: $font-size-xs;
+  color: $color-error;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+
+  &::before { content: '⚠'; font-size: 0.65rem; }
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-top: -$spacing-3;
+}
+
+// ── Variables section ─────────────────────────────────────────────────────────
+.varsSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+}
+
+.varsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-2;
+
+  .varsTitle {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+
+    .varCount {
+      background: rgba(99, 102, 241, 0.15);
+      color: #818cf8;
+      border-radius: $radius-full;
+      padding: 1px $spacing-2;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+.varTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  align-items: center;
+}
+
+.varTag {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: 3px $spacing-2;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  font-family: ui-monospace, 'Fira Code', monospace;
+  background: rgba(99, 102, 241, 0.12);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  animation: tagIn 0.15s ease;
+
+  &.manual {
+    background: rgba(34, 211, 238, 0.1);
+    color: #22d3ee;
+    border-color: rgba(34, 211, 238, 0.2);
+  }
+
+  .removeTag {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: currentColor;
+    opacity: 0.6;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: opacity $transition-fast;
+
+    &:hover { opacity: 1; }
+  }
+}
+
+@keyframes tagIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+.noVars {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  font-style: italic;
+}
+
+// ── Manual add row ────────────────────────────────────────────────────────────
+.addVarRow {
+  display: flex;
+  gap: $spacing-2;
+  align-items: center;
+
+  .addVarInput {
+    flex: 1;
+    padding: $spacing-2 $spacing-3;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    color: $color-text;
+    font-size: $font-size-xs;
+    font-family: ui-monospace, 'Fira Code', monospace;
+    outline: none;
+    transition: border-color $transition-fast;
+
+    &::placeholder { color: $color-text-muted; }
+
+    &:focus { border-color: $color-primary; }
+  }
+
+  .addVarBtn {
+    padding: $spacing-2 $spacing-3;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: $radius-sm;
+    color: #818cf8;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: background $transition-fast;
+    white-space: nowrap;
+
+    &:hover { background: rgba(99, 102, 241, 0.25); }
+  }
+}
+
+// ── Live preview ──────────────────────────────────────────────────────────────
+.preview {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-3;
+  padding: $spacing-4;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  border-left: 3px solid rgba(99, 102, 241, 0.5);
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .previewTitle {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+
+    .flashIcon { color: #f59e0b; font-style: normal; }
+  }
+
+  .copyBtn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-1 $spacing-2;
+    background: transparent;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    color: $color-text-muted;
+    font-size: $font-size-xs;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+
+    &.copied {
+      border-color: $color-success;
+      color: $color-success;
+    }
+  }
+}
+
+.previewContent {
+  font-size: $font-size-sm;
+  color: $color-text;
+  line-height: $line-height-relaxed;
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  &.empty { color: $color-text-muted; font-style: italic; }
+}

@@ -1,0 +1,388 @@
+@use 'sass:color';
+@use '../../../../styles/variables' as *;
+
+.tableWrapper {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+// ── Head ──────────────────────────────────────────────────────────────────────
+.thead {
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid $color-border;
+
+  th {
+    padding: $spacing-3 $spacing-4;
+    text-align: left;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+  }
+}
+
+// ── Body ──────────────────────────────────────────────────────────────────────
+.tbody {
+  tr {
+    border-bottom: 1px solid $color-border;
+    transition: background $transition-fast;
+
+    &:last-child {
+      border-bottom: none;
+    }
+    &:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+  }
+
+  td {
+    padding: $spacing-4;
+    font-size: $font-size-sm;
+    color: $color-text;
+    vertical-align: middle;
+  }
+}
+
+// ── Name cell ─────────────────────────────────────────────────────────────────
+.nameCell {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+}
+
+.templateIcon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &.email {
+    background: rgba(34, 211, 238, 0.12);
+    color: #22d3ee;
+  }
+  &.sms {
+    background: rgba(34, 197, 94, 0.12);
+    color: #4ade80;
+  }
+}
+
+.templateName {
+  font-weight: $font-weight-medium;
+  color: $color-text;
+}
+
+// ── Channel badge ─────────────────────────────────────────────────────────────
+.channelBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: 3px $spacing-2;
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+
+  &.email {
+    background: rgba(34, 211, 238, 0.1);
+    color: #22d3ee;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+  }
+
+  &.sms {
+    background: rgba(34, 197, 94, 0.1);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+// ── Content preview ───────────────────────────────────────────────────────────
+.contentPreview {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}
+
+// ── Variables ─────────────────────────────────────────────────────────────────
+.varList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-1;
+}
+
+.varBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px $spacing-2;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  font-family: ui-monospace, 'Fira Code', monospace;
+  background: rgba(99, 102, 241, 0.12);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  white-space: nowrap;
+}
+
+.varMore {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+.muted {
+  color: $color-text-muted;
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────────
+.actionsCell {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacing-1;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: $radius-sm;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: $color-text-muted;
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: $color-text;
+  }
+
+  &.danger:hover {
+    background: rgba($color-error, 0.1);
+    color: $color-error;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+.empty {
+  padding: $spacing-16 $spacing-8;
+  text-align: center;
+
+  .emptyIcon {
+    font-size: 2rem;
+    margin-bottom: $spacing-3;
+    opacity: 0.4;
+  }
+  .emptyTitle {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    color: $color-text;
+    margin-bottom: $spacing-2;
+  }
+  .emptyText {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}
+
+// ── Skeleton ──────────────────────────────────────────────────────────────────
+.skeletonRow td {
+  padding: $spacing-4;
+}
+
+.skeleton {
+  height: 0.875rem;
+  border-radius: $radius-sm;
+  background: linear-gradient(
+    90deg,
+    $color-border 25%,
+    color.adjust($color-border, $lightness: 3%) 50%,
+    $color-border 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+
+  &.w32 {
+    width: 2rem;
+    height: 2rem;
+    border-radius: $radius-md;
+  }
+  &.w100 {
+    width: 100px;
+  }
+  &.w180 {
+    width: 180px;
+  }
+  &.w60 {
+    width: 60px;
+  }
+  &.w80 {
+    width: 80px;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// ── Responsive: cards on mobile ──────────────────────────────────────────────
+@media (max-width: 768px) {
+  .tableWrapper {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  table,
+  .thead,
+  .tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  .thead {
+    display: none;
+  }
+
+  .tbody {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+
+    tr {
+      background: $color-surface;
+      border: 1px solid $color-border;
+      border-radius: $radius-lg;
+      padding: $spacing-4;
+      position: relative;
+
+      &:last-child {
+        border-bottom: 1px solid $color-border;
+      }
+    }
+
+    td {
+      padding: $spacing-1 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &::before {
+        content: attr(data-label);
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        color: $color-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        flex-shrink: 0;
+        margin-right: $spacing-3;
+      }
+
+      // Name cell — full width header, no label
+      &:first-child {
+        padding-bottom: $spacing-3;
+        margin-bottom: $spacing-2;
+        border-bottom: 1px solid $color-border;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      // Actions cell — top-right corner
+      &:last-child {
+        position: absolute;
+        top: $spacing-4;
+        right: $spacing-4;
+        padding: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .contentPreview {
+    max-width: 60%;
+    text-align: right;
+  }
+
+  .varList {
+    justify-content: flex-end;
+  }
+
+  // Skeleton cards
+  .skeletonRow {
+    display: block;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $spacing-4;
+    margin-bottom: $spacing-3;
+
+    td {
+      display: block;
+      padding: $spacing-1 0;
+    }
+  }
+
+  .nameCell {
+    padding-bottom: $spacing-3;
+    margin-bottom: $spacing-2;
+    border-bottom: 1px solid $color-border;
+  }
+
+  .skeleton {
+    &.w100 {
+      width: 60%;
+    }
+    &.w180 {
+      width: 70%;
+    }
+    &.w60 {
+      width: 40%;
+    }
+    &.w80 {
+      width: 50%;
+    }
+  }
+}

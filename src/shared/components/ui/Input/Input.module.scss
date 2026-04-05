@@ -1,0 +1,90 @@
+@use 'sass:color';
+@use '../../../../styles/variables' as *;
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  width: 100%;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+  transition: color $transition-fast;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-3 $spacing-4;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  transition:
+    border-color $transition-fast,
+    box-shadow $transition-fast;
+  outline: none;
+
+  &::placeholder {
+    color: $color-text-muted;
+    opacity: 0.6;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: color.adjust($color-border, $lightness: 10%);
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.hasError {
+    border-color: $color-error;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+    }
+  }
+
+  &.hasIcon {
+    padding-right: $spacing-10;
+  }
+}
+
+.iconRight {
+  position: absolute;
+  right: $spacing-3;
+  display: flex;
+  align-items: center;
+  color: $color-text-muted;
+  pointer-events: none;
+}
+
+.errorMessage {
+  font-size: $font-size-xs;
+  color: $color-error;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+
+  &::before {
+    content: '⚠';
+    font-size: 0.65rem;
+  }
+}

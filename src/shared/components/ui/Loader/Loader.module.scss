@@ -1,0 +1,52 @@
+@use '../../../../styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba($color-bg, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-modal;
+  backdrop-filter: blur(4px);
+}
+
+.spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+}
+
+.ring {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid $color-border;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.text {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Inline variant ────────────────────────────────────────────────────────────
+.inline {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  .ring {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-width: 2px;
+  }
+}

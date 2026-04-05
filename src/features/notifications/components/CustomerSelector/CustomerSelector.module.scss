@@ -1,0 +1,148 @@
+@use '../../../../styles/variables' as *;
+
+.wrapper   { position: relative; width: 100%; }
+
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  text-align: left;
+
+  &:hover    { border-color: rgba(99,102,241,0.4); }
+  &.open     { border-color: $color-primary; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+  &.hasError { border-color: $color-error; }
+}
+
+.triggerContent { display: flex; align-items: center; gap: $spacing-3; min-width: 0; }
+
+.placeholder { font-size: $font-size-sm; color: $color-text-muted; }
+
+.selectedInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+
+  .selectedName {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .selectedSub {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.chevron {
+  color: $color-text-muted;
+  flex-shrink: 0;
+  transition: transform $transition-fast;
+  &.rotated { transform: rotate(180deg); }
+}
+
+// ── Avatar ────────────────────────────────────────────────────────────────────
+.avatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: $radius-full;
+  background: $gradient-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+// ── Dropdown ──────────────────────────────────────────────────────────────────
+.dropdown {
+  position: absolute;
+  top: calc(100% + $spacing-1);
+  left: 0;
+  right: 0;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  z-index: $z-dropdown;
+  overflow: hidden;
+  animation: dropIn $transition-fast forwards;
+}
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  border-bottom: 1px solid $color-border;
+
+  .searchIcon  { color: $color-text-muted; flex-shrink: 0; }
+  .searchInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: $color-text;
+    font-size: $font-size-sm;
+    font-family: inherit;
+    &::placeholder { color: $color-text-muted; }
+  }
+}
+
+.list {
+  max-height: 220px;
+  overflow-y: auto;
+  &::-webkit-scrollbar       { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: $color-border; border-radius: 99px; }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover    { background: rgba(255,255,255,0.04); }
+  &.selected { background: rgba(99,102,241,0.08); }
+}
+
+.itemLeft   { display: flex; align-items: center; gap: $spacing-3; min-width: 0; }
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+
+  .itemName { font-size: $font-size-sm; font-weight: $font-weight-medium; color: $color-text; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .itemSub  { font-size: $font-size-xs; color: $color-text-muted; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+.checkIcon  { color: $color-primary; flex-shrink: 0; }
+.noResults  { padding: $spacing-6 $spacing-4; text-align: center; font-size: $font-size-sm; color: $color-text-muted; }
+.loadingRow { padding: $spacing-4; display: flex; align-items: center; justify-content: center; gap: $spacing-2; color: $color-text-muted; font-size: $font-size-sm; }

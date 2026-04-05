@@ -1,0 +1,136 @@
+@use '../../../../styles/variables' as *;
+
+// ── Results panel ─────────────────────────────────────────────────────────────
+.results {
+  background: $color-surface;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+  border-radius: $radius-xl;
+  overflow: hidden;
+  animation: fadeUp $transition-normal;
+  max-width: 680px;
+}
+
+.resultsHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-8 $spacing-8 $spacing-6;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid $color-border;
+
+  h2 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin: $spacing-3 0 $spacing-1;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}
+
+.resultsIcon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.12);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4ade80;
+  font-size: 1.25rem;
+}
+
+.successCount {
+  color: #4ade80;
+  font-weight: $font-weight-semibold;
+}
+.failedCount {
+  color: #f87171;
+  font-weight: $font-weight-semibold;
+}
+
+.resultsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.resultRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-6;
+  border-bottom: 1px solid $color-border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+  &.ok {
+    background: rgba(34, 197, 94, 0.03);
+  }
+  &.fail {
+    background: rgba(239, 68, 68, 0.04);
+  }
+}
+
+.resultLeft {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  min-width: 0;
+}
+
+.resultAvatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: $radius-full;
+  background: $gradient-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.resultName {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+}
+
+.resultError {
+  display: block;
+  font-size: $font-size-xs;
+  color: #f87171;
+  margin-top: 1px;
+}
+
+.resultStatus {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  &.ok {
+    color: #4ade80;
+  }
+  &.fail {
+    color: #f87171;
+  }
+}
+
+.resultsActions {
+  display: flex;
+  justify-content: center;
+  padding: $spacing-6;
+  background: rgba(0, 0, 0, 0.06);
+  border-top: 1px solid $color-border;
+}

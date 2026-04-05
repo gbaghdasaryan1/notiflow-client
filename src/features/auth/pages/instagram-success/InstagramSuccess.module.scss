@@ -1,0 +1,29 @@
+@use '../../../../styles/variables' as *;
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-4;
+  background: $color-bg;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid $color-border;
+  border-top-color: $color-primary;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.label {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}

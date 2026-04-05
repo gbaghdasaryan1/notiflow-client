@@ -1,0 +1,387 @@
+@use '../../../../styles/variables' as *;
+
+// ── Step sections ─────────────────────────────────────────────────────────────
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+  max-width: 680px;
+}
+
+.stepCard {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  transition: border-color $transition-normal;
+
+  &.active {
+    border-color: rgba(99, 102, 241, 0.35);
+  }
+  &.done {
+    border-color: rgba(34, 197, 94, 0.25);
+  }
+  &.locked {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $color-border;
+  background: rgba(0, 0, 0, 0.1);
+
+  .stepCard.done & {
+    border-bottom-color: rgba(34, 197, 94, 0.15);
+  }
+}
+
+.stepNum {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+
+  .stepCard.active & {
+    background: rgba(99, 102, 241, 0.2);
+    color: $color-primary;
+    border: 1px solid rgba(99, 102, 241, 0.3);
+  }
+  .stepCard.done & {
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+  .stepCard.locked & {
+    background: rgba(255, 255, 255, 0.05);
+    color: $color-text-muted;
+    border: 1px solid $color-border;
+  }
+}
+
+.stepTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+}
+
+.stepStatus {
+  margin-left: auto;
+  font-size: $font-size-xs;
+  color: #4ade80;
+}
+
+.stepBody {
+  padding: $spacing-5;
+}
+
+.fieldError {
+  margin-top: $spacing-2;
+  font-size: $font-size-xs;
+  color: $color-error;
+  &::before {
+    content: '⚠  ';
+  }
+}
+
+// ── Bulk Customer Picker ──────────────────────────────────────────────────────
+.picker {
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.pickerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  background: rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid $color-border;
+
+  &.hasError {
+    border-color: $color-error;
+  }
+}
+
+.pickerSearch {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  flex: 1;
+  color: $color-text-muted;
+}
+
+.pickerSearchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: $color-text;
+  font-size: $font-size-sm;
+  font-family: inherit;
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+.selectAllBtn {
+  background: transparent;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-text-muted;
+  font-size: $font-size-xs;
+  padding: $spacing-1 $spacing-2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}
+
+.pickerList {
+  max-height: 240px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-border;
+    border-radius: 99px;
+  }
+}
+
+.pickerItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  &.checked {
+    background: rgba(99, 102, 241, 0.07);
+  }
+}
+
+.pickerCheckbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: $color-primary;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.pickerAvatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: $radius-full;
+  background: $gradient-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.pickerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.pickerName {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pickerSub {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pickerEmpty {
+  padding: $spacing-6 $spacing-4;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}
+
+// ── Selected chips ────────────────────────────────────────────────────────────
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  border-top: 1px solid $color-border;
+  background: rgba(99, 102, 241, 0.04);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-1;
+  padding: 2px $spacing-2;
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: $radius-full;
+  font-size: $font-size-xs;
+  color: $color-primary;
+}
+
+.chipRemove {
+  background: transparent;
+  border: none;
+  color: $color-primary;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  font-size: $font-size-sm;
+  opacity: 0.7;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// ── Error banner ──────────────────────────────────────────────────────────────
+.errorBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: #f87171;
+  animation: fadeUp $transition-fast;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ── Send row ──────────────────────────────────────────────────────────────────
+.sendRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacing-3;
+  padding-top: $spacing-2;
+}
+
+.sendHint {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+// Mode toggle pill
+.modeToggle {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.modeBtn {
+  padding: $spacing-2 $spacing-3;
+  background: transparent;
+  border: none;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+  cursor: pointer;
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+  white-space: nowrap;
+
+  &:hover:not(:disabled) {
+    color: $color-text;
+  }
+
+  &.active {
+    background: $color-primary;
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Shared input/select styles
+.varInput,
+.varSelect {
+  flex: 1;
+  height: 2rem;
+  padding: 0 $spacing-3;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-text;
+  font-size: $font-size-sm;
+  font-family: inherit;
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &:focus {
+    border-color: $color-primary;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+.varSelect {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right $spacing-3 center;
+  padding-right: 20px;
+}

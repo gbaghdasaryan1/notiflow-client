@@ -1,0 +1,13 @@
+@use '../../../../styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  margin-top: -$spacing-3;
+}

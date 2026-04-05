@@ -1,0 +1,116 @@
+@use '../../../../styles/variables' as *;
+
+// ── Page header ───────────────────────────────────────────────────────────────
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $spacing-4;
+  margin-bottom: $spacing-6;
+
+  @media (max-width: 540px) {
+    flex-direction: column;
+  }
+
+  .titleBlock {
+    h1 {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $color-text;
+      margin-bottom: $spacing-1;
+    }
+    p {
+      font-size: $font-size-sm;
+      color: $color-text-muted;
+    }
+  }
+}
+
+// ── Toolbar ───────────────────────────────────────────────────────────────────
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin-bottom: $spacing-5;
+
+  @media (max-width: 540px) {
+    flex-wrap: wrap;
+  }
+
+  .searchWrapper {
+    flex: 1;
+    max-width: 340px;
+    min-width: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 540px) {
+      max-width: none;
+      width: 100%;
+    }
+
+    .searchIcon {
+      position: absolute;
+      left: $spacing-3;
+      color: $color-text-muted;
+      pointer-events: none;
+      display: flex;
+    }
+
+    .searchInput {
+      width: 100%;
+      padding: $spacing-2 $spacing-3 $spacing-2 2.25rem;
+      background: $color-surface;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      color: $color-text;
+      font-size: $font-size-sm;
+      font-family: inherit;
+      outline: none;
+      transition:
+        border-color $transition-fast,
+        box-shadow $transition-fast;
+
+      &::placeholder {
+        color: $color-text-muted;
+        opacity: 0.6;
+      }
+
+      &:focus {
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+      }
+    }
+  }
+
+  .count {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    white-space: nowrap;
+  }
+}
+
+// ── Fetch error ───────────────────────────────────────────────────────────────
+.fetchError {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-10;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+
+  button {
+    color: $color-primary;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: $font-size-sm;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,68 @@
+@use '../../styles/variables' as *;
+
+.pageHeader {
+  margin-bottom: $spacing-8;
+
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-2;
+    color: $color-text;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: $spacing-4;
+  margin-bottom: $spacing-8;
+}
+
+.statCard {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-5;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 24px rgba(99, 102, 241, 0.12);
+  }
+
+  .statLabel {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    color: $color-text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: $spacing-3;
+  }
+
+  .statValue {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $spacing-1;
+  }
+
+  .statDelta {
+    font-size: $font-size-xs;
+    color: $color-success;
+  }
+}
+
+.placeholder {
+  background: $color-surface;
+  border: 1px dashed $color-border;
+  border-radius: $radius-lg;
+  padding: $spacing-10;
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+}

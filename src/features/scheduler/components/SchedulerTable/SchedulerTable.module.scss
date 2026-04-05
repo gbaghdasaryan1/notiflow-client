@@ -1,0 +1,291 @@
+@use '../../../../styles/variables' as *;
+
+.tableWrapper {
+  margin-top: $spacing-4;
+  background: $color-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $color-border;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-sm;
+}
+
+.thead {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(79, 70, 229, 0.35),
+      transparent 55%
+    ),
+    rgba(15, 23, 42, 0.96);
+
+  th {
+    text-align: left;
+    padding: $spacing-3 $spacing-4;
+    font-weight: $font-weight-medium;
+    color: $color-text-muted;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+    white-space: nowrap;
+  }
+}
+
+.tbody {
+  tr {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.85);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  td {
+    padding: $spacing-3 $spacing-4;
+    vertical-align: middle;
+    color: $color-text;
+  }
+}
+
+.empty {
+  padding: $spacing-10;
+  text-align: center;
+  color: $color-text-muted;
+
+  .emptyTitle {
+    font-weight: $font-weight-medium;
+    margin-bottom: $spacing-1;
+  }
+
+  .emptyText {
+    font-size: $font-size-sm;
+  }
+}
+
+.nameCell {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+
+  .primary {
+    font-weight: $font-weight-medium;
+  }
+
+  .secondary {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+  }
+}
+
+.typeCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  .typeLabel {
+    font-weight: $font-weight-medium;
+  }
+
+  .humanPreview {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+  }
+}
+
+.timeCell {
+  font-variant-numeric: tabular-nums;
+  color: $color-text;
+}
+
+.statusCell {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+
+  .statusLabel {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+  }
+}
+
+.actionsCell {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteBtn {
+  border: none;
+  background: none;
+  color: $color-error;
+  cursor: pointer;
+  padding: $spacing-2;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.08);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.skeletonRow td {
+  padding: $spacing-3 $spacing-4;
+}
+
+.skeleton {
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.18),
+    rgba(15, 23, 42, 0.95),
+    rgba(148, 163, 184, 0.18)
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+}
+
+.w40 {
+  width: 40%;
+  height: 0.75rem;
+}
+.w60 {
+  width: 60%;
+  height: 0.75rem;
+}
+.w80 {
+  width: 80%;
+  height: 0.75rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// ── Responsive: cards on mobile ──────────────────────────────────────────────
+@media (max-width: 768px) {
+  .tableWrapper {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  table,
+  .thead,
+  .tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  .thead {
+    display: none;
+  }
+
+  .tbody {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-3;
+
+    tr {
+      background: $color-surface;
+      border: 1px solid $color-border;
+      border-radius: $radius-lg;
+      padding: $spacing-4;
+      position: relative;
+    }
+
+    td {
+      padding: $spacing-1 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &::before {
+        content: attr(data-label);
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        color: $color-text-muted;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        flex-shrink: 0;
+        margin-right: $spacing-3;
+      }
+
+      // Template name cell — full width header, no label
+      &:first-child {
+        padding-bottom: $spacing-3;
+        margin-bottom: $spacing-2;
+        border-bottom: 1px solid $color-border;
+
+        &::before {
+          display: none;
+        }
+      }
+
+      // Actions cell — top-right corner
+      &:last-child {
+        position: absolute;
+        top: $spacing-4;
+        right: $spacing-4;
+        padding: 0;
+
+        &::before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .typeCell {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .statusCell {
+    justify-content: flex-end;
+  }
+
+  // Skeleton cards
+  .skeletonRow {
+    display: block;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $spacing-4;
+    margin-bottom: $spacing-3;
+
+    td {
+      display: block;
+      padding: $spacing-1 0;
+
+      &:first-child {
+        padding-bottom: $spacing-3;
+        margin-bottom: $spacing-2;
+        border-bottom: 1px solid $color-border;
+      }
+    }
+  }
+
+  .skeleton {
+    &.w60 {
+      width: 70%;
+    }
+    &.w40 {
+      width: 50%;
+    }
+  }
+}

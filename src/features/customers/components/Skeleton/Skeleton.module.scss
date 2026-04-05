@@ -1,0 +1,86 @@
+@use 'sass:color';
+@use '../../../../styles/variables' as *;
+
+// ── Loading skeleton ──────────────────────────────────────────────────────────
+.skeletonRow {
+  td {
+    padding: $spacing-4;
+  }
+}
+
+.skeleton {
+  height: 0.875rem;
+  border-radius: $radius-sm;
+  background: linear-gradient(
+    90deg,
+    $color-border 25%,
+    color.adjust($color-border, $lightness: 3%) 50%,
+    $color-border 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+
+  &.avatarSkeleton {
+    width: 2rem;
+    height: 2rem;
+    border-radius: $radius-full;
+  }
+  &.nameSkeleton {
+    width: 120px;
+  }
+  &.emailSkeleton {
+    width: 180px;
+  }
+  &.phoneSkeleton {
+    width: 110px;
+  }
+  &.tagsSkeleton {
+    width: 80px;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .skeletonRow {
+    display: block;
+    background: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    padding: $spacing-4;
+    margin-bottom: $spacing-3;
+
+    td {
+      display: block;
+      padding: $spacing-1 0;
+    }
+  }
+
+  .nameCell {
+    padding-bottom: $spacing-3;
+    margin-bottom: $spacing-2;
+    border-bottom: 1px solid $color-border;
+  }
+
+  .skeleton {
+    &.nameSkeleton {
+      width: 60%;
+    }
+    &.emailSkeleton {
+      width: 70%;
+    }
+    &.phoneSkeleton {
+      width: 50%;
+    }
+    &.tagsSkeleton {
+      width: 40%;
+    }
+  }
+}

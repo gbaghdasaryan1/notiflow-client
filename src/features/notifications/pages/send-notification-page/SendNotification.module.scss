@@ -1,0 +1,17 @@
+@use '../../../../styles/variables' as *;
+
+.pageHeader {
+  margin-bottom: $spacing-8;
+
+  h1 {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $spacing-1;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+  }
+}

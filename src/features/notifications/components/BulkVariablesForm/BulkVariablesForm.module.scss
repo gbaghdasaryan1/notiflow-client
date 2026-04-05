@@ -1,0 +1,43 @@
+@use '../../../../styles/variables' as *;
+
+// ── Bulk Variables Form ───────────────────────────────────────────────────────
+.varsEmpty {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  padding: $spacing-2 0;
+}
+
+.varsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.varRow {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.varLabel {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.varCode {
+  font-size: $font-size-xs;
+  font-family: inherit;
+  font-weight: $font-weight-semibold;
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: $radius-sm;
+  padding: 1px $spacing-2;
+}
+
+.varControls {
+  display: flex;
+  gap: $spacing-2;
+  align-items: center;
+}

@@ -1,0 +1,85 @@
+@use '../../../../styles/variables' as *;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-4;
+
+  @media (max-width: 640px) { grid-template-columns: 1fr; }
+}
+
+// ── Single variable field ─────────────────────────────────────────────────────
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.varLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  font-family: ui-monospace, 'Fira Code', monospace;
+  color: #818cf8;
+  letter-spacing: 0.02em;
+}
+
+.sourceTag {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: $radius-full;
+  font-weight: $font-weight-medium;
+
+  &.customer {
+    background: rgba(34,197,94,0.1);
+    color: #4ade80;
+    border: 1px solid rgba(34,197,94,0.2);
+  }
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-2 $spacing-3;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  color: $color-text;
+  font-size: $font-size-sm;
+  font-family: inherit;
+  outline: none;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &::placeholder { color: $color-text-muted; opacity: 0.6; }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+  }
+
+  &.prefilled {
+    border-color: rgba(34,197,94,0.25);
+    background: rgba(34,197,94,0.04);
+  }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+.emptyState {
+  padding: $spacing-6;
+  text-align: center;
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  background: rgba(0,0,0,0.15);
+  border: 1px dashed $color-border;
+  border-radius: $radius-md;
+}

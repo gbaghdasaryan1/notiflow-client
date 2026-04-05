@@ -1,0 +1,144 @@
+@use '../../../../styles/variables' as *;
+
+// ── Bulk Customer Picker ──────────────────────────────────────────────────────
+.picker {
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.pickerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  background: rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid $color-border;
+
+  &.hasError {
+    border-color: $color-error;
+  }
+}
+
+.pickerSearch {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  flex: 1;
+  color: $color-text-muted;
+}
+
+.pickerSearchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: $color-text;
+  font-size: $font-size-sm;
+  font-family: inherit;
+  &::placeholder {
+    color: $color-text-muted;
+  }
+}
+
+.selectAllBtn {
+  background: transparent;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  color: $color-text-muted;
+  font-size: $font-size-xs;
+  padding: $spacing-1 $spacing-2;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color $transition-fast,
+    color $transition-fast;
+
+  &:hover {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+}
+
+.pickerList {
+  max-height: 240px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-border;
+    border-radius: 99px;
+  }
+}
+
+.pickerItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3 $spacing-4;
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+  &.checked {
+    background: rgba(99, 102, 241, 0.07);
+  }
+}
+
+.pickerCheckbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: $color-primary;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.pickerAvatar {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: $radius-full;
+  background: $gradient-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.pickerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.pickerName {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pickerSub {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pickerEmpty {
+  padding: $spacing-6 $spacing-4;
+  text-align: center;
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+}

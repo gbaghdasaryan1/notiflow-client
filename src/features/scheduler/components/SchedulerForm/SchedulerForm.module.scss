@@ -1,0 +1,67 @@
+@use '../../../../styles/variables' as *;
+
+.formLayout {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-5;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-4;
+}
+
+.col {
+  flex: 1 1 200px;
+}
+
+.sectionTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.typeTabs {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.9);
+  border: 1px solid rgba(148,163,184,0.6);
+}
+
+.typeTab {
+  border: none;
+  background: transparent;
+  color: $color-text-muted;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  font-size: $font-size-xs;
+  cursor: pointer;
+
+  &.active {
+    background: $gradient-primary;
+    color: #fff;
+    box-shadow: $shadow-glow;
+  }
+}
+
+.helper {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+.previewChip {
+  margin-top: $spacing-1;
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-2;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.9);
+  border: 1px dashed rgba(148,163,184,0.7);
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}

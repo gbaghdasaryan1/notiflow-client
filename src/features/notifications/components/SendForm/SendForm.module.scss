@@ -1,0 +1,336 @@
+@use '../../../../styles/variables' as *;
+
+// ── Two-column layout ─────────────────────────────────────────────────────────
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: $spacing-6;
+  align-items: start;
+
+  @media (max-width: 1100px) { grid-template-columns: 1fr 320px; }
+  @media (max-width: 900px)  { grid-template-columns: 1fr; }
+}
+
+// ── Step sections (left column) ───────────────────────────────────────────────
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.stepCard {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  // overflow: hidden;
+  transition: border-color $transition-normal;
+
+  &.active  { border-color: rgba(99,102,241,0.35); }
+  &.done    { border-color: rgba(34,197,94,0.25); }
+  &.locked  { opacity: 0.55; pointer-events: none; }
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $color-border;
+  background: rgba(0,0,0,0.1);
+
+  .stepCard.done & { border-bottom-color: rgba(34,197,94,0.15); }
+}
+
+.stepNum {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+
+  .stepCard.active & { background: rgba(99,102,241,0.2); color: $color-primary; border: 1px solid rgba(99,102,241,0.3); }
+  .stepCard.done   & { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .stepCard.locked & { background: rgba(255,255,255,0.05); color: $color-text-muted; border: 1px solid $color-border; }
+}
+
+.stepTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+}
+
+.stepStatus {
+  margin-left: auto;
+  font-size: $font-size-xs;
+  color: #4ade80;
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+}
+
+.stepBody { padding: $spacing-5; }
+
+// ── Field label ───────────────────────────────────────────────────────────────
+.fieldLabel {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text-muted;
+  display: block;
+  margin-bottom: $spacing-2;
+}
+
+.fieldError {
+  margin-top: $spacing-2;
+  font-size: $font-size-xs;
+  color: $color-error;
+  &::before { content: '⚠  '; }
+}
+
+// ── Send button row ───────────────────────────────────────────────────────────
+.sendRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacing-3;
+  padding-top: $spacing-2;
+}
+
+.sendHint {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+}
+
+// ── Error banner ──────────────────────────────────────────────────────────────
+.errorBanner {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-2;
+  padding: $spacing-3 $spacing-4;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.25);
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  color: #f87171;
+  animation: fadeUp $transition-fast;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+// ── Success screen ────────────────────────────────────────────────────────────
+.successScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: $spacing-16 $spacing-8;
+  background: $color-surface;
+  border: 1px solid rgba(34,197,94,0.25);
+  border-radius: $radius-xl;
+  animation: fadeUp $transition-normal;
+
+  .successIcon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: rgba(34,197,94,0.12);
+    border: 2px solid rgba(34,197,94,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4ade80;
+    margin-bottom: $spacing-5;
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $spacing-2;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    max-width: 380px;
+    margin-bottom: $spacing-8;
+  }
+
+  .successMeta {
+    display: flex;
+    gap: $spacing-3;
+    margin-bottom: $spacing-8;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .successMetaItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-3 $spacing-5;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+
+    .metaLabel { font-size: $font-size-xs; color: $color-text-muted; text-transform: uppercase; letter-spacing: 0.06em; }
+    .metaValue { font-size: $font-size-sm; font-weight: $font-weight-semibold; color: $color-text; }
+  }
+}
+
+// ── Preview card (right column) ───────────────────────────────────────────────
+.previewCard {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  position: sticky;
+  top: 72px; // below topbar
+
+  @media (max-width: 900px) { position: static; }
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $color-border;
+  background: rgba(0,0,0,0.12);
+
+  .previewTitle {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $color-text;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+
+    .flashIcon { color: #f59e0b; }
+  }
+
+  .copyBtn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: $spacing-1 $spacing-2;
+    background: transparent;
+    border: 1px solid $color-border;
+    border-radius: $radius-sm;
+    color: $color-text-muted;
+    font-size: $font-size-xs;
+    cursor: pointer;
+    transition: all $transition-fast;
+
+    &:hover { border-color: $color-primary; color: $color-primary; }
+    &.copied { border-color: $color-success; color: $color-success; }
+  }
+}
+
+// Recipient info bar
+.recipientBar {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2;
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $color-border;
+  background: rgba(0,0,0,0.06);
+}
+
+.recipientRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  .recipientLabel { font-weight: $font-weight-semibold; min-width: 52px; }
+  .recipientValue { color: $color-text; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .channelBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    padding: 2px $spacing-2;
+    border-radius: $radius-full;
+    font-size: 10px;
+    font-weight: $font-weight-semibold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
+    &.email { background: rgba(34,211,238,0.1); color: #22d3ee; border: 1px solid rgba(34,211,238,0.2); }
+    &.sms   { background: rgba(34,197,94,0.1);  color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+  }
+}
+
+// Preview content area
+.previewBody {
+  padding: $spacing-5;
+  min-height: 160px;
+}
+
+.previewEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  gap: $spacing-2;
+  text-align: center;
+
+  .emptyIcon { font-size: 1.5rem; opacity: 0.3; }
+  span { font-size: $font-size-xs; color: $color-text-muted; }
+}
+
+.previewContent {
+  font-size: $font-size-sm;
+  line-height: $line-height-relaxed;
+  color: $color-text;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+// Inline variable highlight spans (set via style prop)
+.varFilled   { color: #4ade80; font-weight: $font-weight-medium; }
+.varUnfilled { color: #fbbf24; font-weight: $font-weight-medium; font-style: italic; }
+
+// Fill progress bar
+.previewFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-5;
+  border-top: 1px solid $color-border;
+  background: rgba(0,0,0,0.08);
+}
+
+.fillStatus {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+
+  strong { color: $color-text; }
+}
+
+.progressBar {
+  flex: 1;
+  height: 3px;
+  background: $color-border;
+  border-radius: $radius-full;
+  overflow: hidden;
+
+  .progressFill {
+    height: 100%;
+    background: $gradient-primary;
+    border-radius: $radius-full;
+    transition: width $transition-normal;
+  }
+}

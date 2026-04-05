@@ -1,0 +1,91 @@
+@use '../../../../styles/variables' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-modal;
+  animation: fadeIn $transition-fast forwards;
+  padding: $spacing-4;
+}
+
+.dialog {
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: $shadow-lg;
+  animation: slideUp $transition-normal forwards;
+}
+
+.body {
+  padding: $spacing-6 $spacing-5;
+  text-align: center;
+}
+
+.iconWrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto $spacing-4;
+  font-size: 1.25rem;
+}
+
+.danger .iconWrapper {
+  background: rgba($color-error, 0.12);
+  color: $color-error;
+}
+
+.warning .iconWrapper {
+  background: rgba(234, 179, 8, 0.12);
+  color: #facc15;
+}
+
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+  margin-bottom: $spacing-2;
+}
+
+.message {
+  font-size: $font-size-sm;
+  color: $color-text-muted;
+  line-height: $line-height-normal;
+}
+
+.footer {
+  display: flex;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-5;
+  border-top: 1px solid $color-border;
+  justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
