@@ -1,26 +1,66 @@
 export type MetaPlatform = 'facebook' | 'instagram';
 
-export type MetaAuthUrlResponse = {
+export type MessageStatus =
+  | 'pending'
+  | 'sent'
+  | 'delivered'
+  | 'read'
+  | 'failed';
+
+export interface MetaAccount {
+  platform: MetaPlatform;
+  pageId: string;
+  pageName: string;
+  instagramBusinessId?: string;
+  connectedAt: string;
+}
+
+export interface Conversation {
+  _id: string;
+  platform: MetaPlatform;
+  pageId: string;
+  participantId: string;
+  participantName: string;
+  participantAvatar?: string;
+  lastMessage: string;
+  lastMessageAt: string;
+  unreadCount: number;
+}
+
+export interface Message {
+  _id: string;
+  conversationId: string;
+  direction: 'inbound' | 'outbound';
+  text: string;
+  status: MessageStatus;
+  createdAt: string;
+}
+
+export interface User {
+  _id: string;
+  email: string;
+  name: string;
+  metaAccounts: MetaAccount[];
+}
+
+export interface AuthUrlResponse {
   url: string;
-};
+}
 
-export type MetaCallbackResponse = {
-  success: boolean;
-};
+export interface MetaAccountsResponse {
+  accounts: MetaAccount[];
+}
 
-export type MetaDm = {
-  id:          string;
-  senderName?: string;
-  senderId?:   string;
-  message?:    string;
-  snippet?:    string;
-  timestamp?:  string;
-  unread?:     number;
-  [key: string]: unknown;
-};
+export interface ConversationsResponse {
+  data: Conversation[];
+  total: number;
+  page: number;
+  limit: number;
+}
 
-export type MetaDmsPage = {
-  data:        MetaDm[];
-  nextCursor?: string;
-  cursors?:    { before?: string; after?: string };
-};
+export interface MessagesResponse {
+  data: Message[];
+  total: number;
+  page: number;
+  limit: number;
+}

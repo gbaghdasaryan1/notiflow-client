@@ -1,0 +1,339 @@
+@use '../../../../styles/variables' as *;
+
+.root {
+  width: 340px;
+  flex-shrink: 0;
+  border-right: 1px solid $color-border;
+  background: $color-bg;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+// ── Search ────────────────────────────────────────────────────────────────────
+
+.searchWrap {
+  position: relative;
+  padding: $spacing-3 $spacing-3 0;
+}
+
+.searchIcon {
+  position: absolute;
+  left: calc($spacing-3 + $spacing-2);
+  top: 50%;
+  transform: translateY(calc(-50% + ($spacing-3 / 2)));
+  color: $color-text-muted;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-lg;
+  padding: 10px 12px 10px 18px;
+  font-size: $font-size-sm;
+  color: $color-text;
+  font-family: inherit;
+  outline: none;
+  transition: border-color $transition-fast;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:focus {
+    border-color: rgba($color-primary, 0.5);
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.08);
+  }
+
+  &::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────────
+
+.tabs {
+  display: flex;
+  gap: $spacing-1;
+  padding: $spacing-3 $spacing-3 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  padding: $spacing-1 $spacing-2;
+  border-radius: $radius-md;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  font-family: inherit;
+  border: 1px solid $color-border;
+  background: transparent;
+  color: $color-text-muted;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all $transition-fast;
+
+  &:hover {
+    background: rgba($color-primary, 0.06);
+    color: $color-text;
+    border-color: rgba($color-primary, 0.3);
+  }
+}
+
+.tabActive {
+  background: rgba($color-primary, 0.12);
+  color: $color-primary;
+  border-color: rgba($color-primary, 0.3);
+}
+
+// ── List ──────────────────────────────────────────────────────────────────────
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-2 0;
+  scrollbar-width: thin;
+  scrollbar-color: $color-border transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $color-border;
+    border-radius: $radius-full;
+  }
+}
+
+// ── Conversation item ─────────────────────────────────────────────────────────
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-3;
+  width: 100%;
+  padding: $spacing-3 $spacing-3;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba($color-primary, 0.04);
+  }
+}
+
+.active {
+  background: rgba($color-primary, 0.08) !important;
+}
+
+.unread {
+  .name {
+    font-weight: $font-weight-semibold;
+    color: $color-text;
+  }
+  .preview {
+    color: $color-text;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: $gradient-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: #fff;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-2;
+  min-width: 0;
+}
+
+.name {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.time {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  flex-shrink: 0;
+}
+
+.preview {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.unreadBadge {
+  background: $color-primary;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: $font-weight-bold;
+  min-width: 18px;
+  height: 18px;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+.badgeRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-1;
+  margin-top: 1px;
+}
+
+.pageName {
+  font-size: 0.65rem;
+  color: $color-text-muted;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-12 $spacing-4;
+  color: $color-text-muted;
+  text-align: center;
+
+  svg {
+    opacity: 0.3;
+  }
+
+  p {
+    font-size: $font-size-sm;
+    margin: 0;
+  }
+}
+
+// ── Sentinel / loading more ───────────────────────────────────────────────────
+
+.sentinel {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingMore {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $color-border;
+  border-top-color: $color-primary;
+  border-radius: $radius-full;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ── Skeleton ──────────────────────────────────────────────────────────────────
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+%skeleton {
+  background: linear-gradient(
+    90deg,
+    $color-surface 25%,
+    rgba($color-border, 0.5) 50%,
+    $color-surface 75%
+  );
+  background-size: 200px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: $radius-sm;
+}
+
+.skeletonItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-3;
+}
+
+.skeletonAvatar {
+  @extend %skeleton;
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  flex-shrink: 0;
+}
+
+.skeletonBody {
+  flex: 1;
+}
+
+.skeletonLine {
+  @extend %skeleton;
+  height: 12px;
+}
+
+// ── Mobile ────────────────────────────────────────────────────────────────────
+
+@media (max-width: 768px) {
+  .root {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid $color-border;
+  }
+}

@@ -1,0 +1,284 @@
+@use '../../../../styles/variables' as *;
+
+.root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: $color-bg;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  padding: $spacing-4 $spacing-5;
+  border-bottom: 1px solid $color-border;
+  background: $color-surface;
+  flex-shrink: 0;
+}
+
+.headerAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-full;
+  background: $gradient-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: #fff;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.headerAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.headerName {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerMeta {
+  display: flex;
+  align-items: center;
+  gap: $spacing-2;
+}
+
+.headerPage {
+  font-size: $font-size-xs;
+  color: $color-text-muted;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// ── Messages area ─────────────────────────────────────────────────────────────
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-4 $spacing-5;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: $color-border transparent;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: $color-border; border-radius: $radius-full; }
+}
+
+.messageGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-1;
+}
+
+// ── Date separator ────────────────────────────────────────────────────────────
+
+.dateSeparator {
+  display: flex;
+  align-items: center;
+  gap: $spacing-3;
+  margin: $spacing-4 0 $spacing-3;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: $color-border;
+  }
+
+  span {
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+// ── Bubble ────────────────────────────────────────────────────────────────────
+
+.bubble {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  padding: $spacing-2 $spacing-3;
+  border-radius: $radius-lg;
+  word-break: break-word;
+  position: relative;
+
+  &:hover .bubbleMeta {
+    opacity: 1;
+  }
+}
+
+.inbound {
+  align-self: flex-start;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-bottom-left-radius: $radius-sm;
+  color: $color-text;
+}
+
+.outbound {
+  align-self: flex-end;
+  background: $color-primary;
+  border-bottom-right-radius: $radius-sm;
+  color: #fff;
+}
+
+.bubbleText {
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  margin: 0;
+}
+
+.bubbleMeta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: $spacing-1;
+  margin-top: 2px;
+  opacity: 0;
+  transition: opacity $transition-fast;
+}
+
+.bubbleTime {
+  font-size: 0.65rem;
+  opacity: 0.7;
+}
+
+// ── Status icons ──────────────────────────────────────────────────────────────
+
+%statusBase {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+.statusPending {
+  @extend %statusBase;
+  opacity: 0.5;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.statusFailed {
+  @extend %statusBase;
+  color: #fca5a5;
+  font-weight: $font-weight-bold;
+}
+
+.statusSent {
+  @extend %statusBase;
+  opacity: 0.6;
+}
+
+.statusDelivered {
+  @extend %statusBase;
+  opacity: 0.7;
+}
+
+.statusRead {
+  @extend %statusBase;
+  color: #93c5fd;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Loading more ──────────────────────────────────────────────────────────────
+
+.loadingMoreSpinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $color-border;
+  border-top-color: $color-primary;
+  border-radius: $radius-full;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto $spacing-3;
+}
+
+// ── Empty state ───────────────────────────────────────────────────────────────
+
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-4;
+  color: $color-text-muted;
+  padding: $spacing-8;
+  text-align: center;
+
+  svg { opacity: 0.2; }
+
+  p {
+    font-size: $font-size-sm;
+    margin: 0;
+    max-width: 280px;
+  }
+}
+
+// ── Skeletons ─────────────────────────────────────────────────────────────────
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: calc(400px + 100%) 0; }
+}
+
+%skeletonBase {
+  background: linear-gradient(
+    90deg,
+    $color-surface 25%,
+    rgba($color-border, 0.5) 50%,
+    $color-surface 75%
+  );
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: $radius-lg;
+  height: 42px;
+  margin-bottom: $spacing-2;
+}
+
+.skeletonWrap {
+  padding: $spacing-4 $spacing-5;
+  flex: 1;
+}
+
+.skeletonBubble {
+  @extend %skeletonBase;
+}
+
+.skeletonIn {
+  margin-right: auto;
+  border-bottom-left-radius: $radius-sm;
+}
+
+.skeletonOut {
+  margin-left: auto;
+  border-bottom-right-radius: $radius-sm;
+}

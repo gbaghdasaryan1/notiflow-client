@@ -12,7 +12,7 @@ const NAV = [
   { label: 'Send', to: '/send', end: true },
   { label: 'Bulk Send', to: '/send/bulk', end: false },
   { label: 'Scheduler', to: '/scheduler', end: false },
-  { label: 'Messages',  to: '/meta/dms',  end: false },
+  { label: 'Messages',  to: '/meta/inbox', end: false },
   { label: 'Analytics', to: '/analytics', end: false },
   { label: 'Settings', to: '/settings', end: false },
 ];

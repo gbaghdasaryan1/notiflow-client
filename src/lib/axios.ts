@@ -12,12 +12,15 @@ const api = axios.create({
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     const token = localStorage.getItem('notiflow_token');
+
+    console.log(token);
+
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error: AxiosError) => Promise.reject(error),
+  (error: AxiosError) => Promise.reject(error)
 );
 
 // ── Normalize MongoDB _id → id recursively ────────────────────────────────────
@@ -27,7 +30,8 @@ const normalizeIds = (value: unknown): unknown => {
     const obj = value as Record<string, unknown>;
     const result: Record<string, unknown> = {};
     for (const [k, v] of Object.entries(obj)) result[k] = normalizeIds(v);
-    if (result._id !== undefined && result.id === undefined) result.id = result._id;
+    if (result._id !== undefined && result.id === undefined)
+      result.id = result._id;
     return result;
   }
   return value;
@@ -49,17 +53,14 @@ api.interceptors.response.use(
     });
 
     // /auth/ — expected failures (wrong password, etc.), never log out
-    // /meta/dms — 401/403 means "Meta account not connected to Notiflow",
-    //             not an expired Notiflow JWT, so don't log the user out
-    const isAuthEndpoint    = url?.startsWith('/auth/');
-    const isMetaDmsEndpoint = url?.startsWith('/meta/dms');
-    if (status === 401 && !isAuthEndpoint && !isMetaDmsEndpoint) {
+    const isAuthEndpoint = url?.startsWith('/auth/');
+    if (status === 401 && !isAuthEndpoint) {
       localStorage.removeItem('notiflow_token');
       globalThis.location.href = '/login';
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;

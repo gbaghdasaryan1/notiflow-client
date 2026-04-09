@@ -155,24 +155,3 @@
     background: $color-border;
   }
 }
-
-.instagramBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: $spacing-2;
-  width: 100%;
-  padding: $spacing-3;
-  margin-top: $spacing-3;
-  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-  border: none;
-  border-radius: $radius-md;
-  color: #fff;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  font-family: inherit;
-  cursor: pointer;
-  transition: opacity $transition-fast;
-
-  &:hover { opacity: 0.88; }
-}

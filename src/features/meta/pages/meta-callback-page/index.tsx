@@ -1,57 +1,43 @@
-import { useEffect, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { useMetaCallback } from '../../use-meta.api';
+import { useEffect, useRef } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import api from '@lib/axios';
 import styles from './MetaCallback.module.scss';
 
 export const MetaCallbackPage = () => {
-  const [searchParams] = useSearchParams();
-  const callback       = useMetaCallback();
-
-  const [missingParams] = useState(
-    () => !searchParams.get('code') || !searchParams.get('state')
-  );
-
-  // Guard against React StrictMode double-invocation — OAuth codes are single-use
-  const called = useRef(false);
+  const [params] = useSearchParams();
+  const navigate = useNavigate();
+  const qc = useQueryClient();
+  const calledRef = useRef(false);
 
   useEffect(() => {
-    if (missingParams || called.current) return;
-    called.current = true;
-    callback.mutate({
-      code:  searchParams.get('code')!,
-      state: searchParams.get('state')!,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (calledRef.current) return;
+    calledRef.current = true;
 
-  const showPending = !missingParams && callback.isPending;
-  const showError   = missingParams || callback.isError;
+    const code = params.get('code');
+    const state = params.get('state');
+    const error = params.get('error');
 
-  const errorMessage = missingParams
-    ? 'Authorization was denied or the link is invalid.'
-    : ((callback.error as { response?: { data?: { message?: string } } })
-        ?.response?.data?.message ?? 'Something went wrong. Please try again.');
+    if (error || !code) {
+      navigate('/meta/accounts?error=oauth_denied', { replace: true });
+      return;
+    }
+
+    api
+      .get('/meta/callback', { params: { code, ...(state ? { state } : {}) } })
+      .then(() => {
+        void qc.invalidateQueries({ queryKey: ['meta', 'pages'] });
+        navigate('/meta/accounts?connected=1', { replace: true });
+      })
+      .catch(() => {
+        navigate('/meta/accounts?error=callback_failed', { replace: true });
+      });
+  }, [params, navigate, qc]);
 
   return (
     <div className={styles.page}>
-      <div className={styles.card}>
-        {showPending && (
-          <>
-            <div className={styles.spinner} />
-            <h2>Connecting…</h2>
-            <p>Completing your Meta authorization.</p>
-          </>
-        )}
-
-        {/* Success navigates automatically via onSuccess — only errors stay on this page */}
-        {showError && (
-          <>
-            <div className={styles.iconError}>✗</div>
-            <h2>Connection Failed</h2>
-            <p className={styles.errorMsg}>{errorMessage}</p>
-          </>
-        )}
-      </div>
+      <div className={styles.spinner} />
+      <p className={styles.label}>Completing authorization…</p>
     </div>
   );
 };
